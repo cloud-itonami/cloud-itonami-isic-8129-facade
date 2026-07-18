@@ -1,0 +1,27 @@
+{:paths ["src"]
+ :deps {io.github.kotoba-lang/langgraph
+        {:git/sha "6daa48e7bf86acc13d44804104fced4938530fd2"}}
+ :aliases
+ {;; offline workspace dev -- pin to the local monorepo checkout so this
+  ;; repo's own tests exercise the same langgraph/langchain source the
+  ;; rest of the com-junkawasaki fleet builds against, instead of the
+  ;; git/sha-pinned base deps above (which still work standalone outside
+  ;; this monorepo). Note: `kotoba-lang/langgraph` is the current,
+  ;; west-registered, renamed coordinate (per CLAUDE.md's "Repo naming
+  ;; -- no -clj suffix" ADR, 2026-07-10); `com-junkawasaki/langgraph-clj`
+  ;; is the historical pre-rename name and is deliberately NOT used here.
+  :dev {:override-deps
+        {io.github.kotoba-lang/langgraph
+         {:local/root "../../kotoba-lang/langgraph"}
+         io.github.kotoba-lang/langchain
+         {:local/root "../../kotoba-lang/langchain"}}}
+  :run {:main-opts ["-m" "facadecleaningops.sim"]}
+  :test {:extra-paths ["test"]
+         :extra-deps {io.github.cognitect-labs/test-runner
+                      {:git/tag "v0.5.1" :git/sha "dfb30dd"}}
+         :main-opts ["-m" "cognitect.test-runner"]
+         :exec-fn cognitect.test-runner.api/test}
+  :lint {:replace-deps {clj-kondo/clj-kondo {:mvn/version "2024.11.14"}}
+         :main-opts    ["-m" "clj-kondo.main"
+                        "--lint" "src" "test"
+                        "--fail-level" "error"]}}}

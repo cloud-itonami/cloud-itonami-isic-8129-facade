@@ -1,0 +1,12 @@
+{:itonami.blueprint/id "cloud-itonami-8129-facade"
+ :itonami.blueprint/name "Autonomous Facade and Street-Cleaning Robot Operations"
+ :itonami.blueprint/isic-rev5 "8129"
+ :itonami.blueprint/domain :services/facade-street-cleaning-robotics
+ :itonami.blueprint/license "AGPL-3.0-or-later"
+ :itonami.blueprint/social-impact [:public-space-cleanliness :worker-safety :pedestrian-safety]
+ :itonami.blueprint/governor :facade-street-cleaning-governor
+ :itonami.blueprint/robotics true
+ :itonami.blueprint/required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger :telemetry :insurance]
+ :itonami.blueprint/optional-technologies [:optimization]
+ :itonami.blueprint/status :public-oss
+ :itonami.blueprint/satellite-of "cloud-itonami-8129"}
