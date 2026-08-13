@@ -632,7 +632,7 @@
 
 (defn- runs-section [runs]
   (section
-   "5. この実行のシナリオ全 17 件"
+   (str "5. この実行のシナリオ全 " (count runs) " 件")
    (str "1 行 = 1 アクター実行 (<code>langgraph</code> StateGraph の 1 スレッド)。"
         "「初回」列が <code>interrupted</code> の行は人間承認のために停止したもので、"
         "「人間」列がその人間の判断、「最終」列が再開後の実際の帰結。"
