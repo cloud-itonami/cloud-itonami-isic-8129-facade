@@ -1,6 +1,14 @@
 {:paths ["src"]
  :deps {io.github.kotoba-lang/langgraph
-        {:git/sha "6daa48e7bf86acc13d44804104fced4938530fd2"}}
+        {:git/sha "6daa48e7bf86acc13d44804104fced4938530fd2"}
+        ;; base design system for the build-time operator console
+        ;; (`facadecleaningops.render-html`). CLAUDE.md's "UI/UX 標準"
+        ;; makes jp-go-dds (デジタル庁デザインシステム) the base design
+        ;; system for any UI in this workspace; `:dev` below overrides it
+        ;; to the local monorepo checkout so the console renders offline.
+        io.github.kotoba-lang/jp-go-digital-design-system
+        {:git/url "https://github.com/kotoba-lang/jp-go-digital-design-system"
+         :git/sha "83db99546eabc53613ae826ea41d1533a3c574af"}}
  :aliases
  {;; offline workspace dev -- pin to the local monorepo checkout so this
   ;; repo's own tests exercise the same langgraph/langchain source the
@@ -14,8 +22,15 @@
         {io.github.kotoba-lang/langgraph
          {:local/root "../../kotoba-lang/langgraph"}
          io.github.kotoba-lang/langchain
-         {:local/root "../../kotoba-lang/langchain"}}}
+         {:local/root "../../kotoba-lang/langchain"}
+         io.github.kotoba-lang/jp-go-digital-design-system
+         {:local/root "../../kotoba-lang/jp-go-digital-design-system"}}}
   :run {:main-opts ["-m" "facadecleaningops.sim"]}
+  ;; clojure -M:dev:render-html [out-file] -> regenerate
+  ;; docs/samples/operator-console.html by driving the REAL actor
+  ;; (operation -> governor -> store). Refuses to write unless the run
+  ;; actually produced governor HARD refusals; see the namespace.
+  :render-html {:main-opts ["-m" "facadecleaningops.render-html"]}
   :test {:extra-paths ["test"]
          :extra-deps {io.github.cognitect-labs/test-runner
                       {:git/tag "v0.5.1" :git/sha "dfb30dd"}}
