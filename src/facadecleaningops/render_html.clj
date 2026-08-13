@@ -159,9 +159,17 @@
     r15 `:effect-not-propose`  -- an advisor claiming a direct commit.
     r16 `:scope-excluded`      -- an advisor drifting into permanently
                                   excluded direct-actuation vocabulary.
+    r17 `:op-not-allowed`      -- an op outside the closed four-op
+                                  allowlist, which the advisor collapses
+                                  to its `:unknown` catch-all.
+
+  Together r09-r17 exercise ALL EIGHT of the rules
+  `facadecleaningops.governor` can raise, so the refusal table on the
+  page is a complete census of this governor's HARD vocabulary rather
+  than a sample of it.
 
   Finally the safety-critical drill, run LAST because it mutates a zone:
-    r17 a `:cleaning/dispatch` that is clean at intake, whose zone's
+    r18 a `:cleaning/dispatch` that is clean at intake, whose zone's
         permit then EXPIRES during the human-review window. The human
         approves anyway; `:request-approval` re-runs the governor
         against the LIVE store and holds regardless."
@@ -276,29 +284,42 @@
                       :out-of-scope? true
                       :patch {:run-id "r16" :fluid-id "fluid-1" :surface "glass"}}})
 
+    ;; An op outside the closed four-op allowlist. The advisor is
+    ;; structurally unable to construct one (`advisor/infer` collapses
+    ;; anything outside `permitted-ops` to the `{:op :unknown
+    ;; :confidence 0.0}` catch-all), so what actually reaches the
+    ;; governor is that catch-all -- and `:unknown` is itself not in
+    ;; `governor/allowed-ops`, which is what makes this the LAST of the
+    ;; governor's eight rules the scenario had not yet exercised.
+    (step! {:run-id "r17" :phase 3
+            :label "an op outside the closed allowlist -- collapses to :unknown, refused"
+            :request {:op :facility/demolish :site-id "site-1" :zone-id "shibuya-ku-row"
+                      :patch {:run-id "r17"}}})
+
     ;; -- safety-critical: the world changes during human review -----------
     ;; Runs LAST: it mutates `shibuya-ku-row`, so every run above saw the
     ;; zone in its seeded (valid-permit) state. Before/after are read back
     ;; out of the store rather than restated, so the page cannot drift
     ;; from what actually happened.
     (let [zone-id "shibuya-ku-row"
-          r1 (exec! actor "r17" {:op :cleaning/dispatch :site-id "site-2" :zone-id zone-id
-                                 :patch {:run-id "r17" :fluid-id "fluid-1" :surface "glass"
+          r1 (exec! actor "r18" {:op :cleaning/dispatch :site-id "site-2" :zone-id zone-id
+                                 :patch {:run-id "r18" :fluid-id "fluid-1" :surface "glass"
                                          :window "13:00-16:00"}}
                     3)
           before (get-in (store/zone db zone-id) [:zone/permit :expires])
           _ (store/set-zone! db zone-id
                              (assoc-in (store/zone db zone-id) [:zone/permit :expires] 20260101))
           after (get-in (store/zone db zone-id) [:zone/permit :expires])
-          r2 (resume! actor "r17" :approved)]
-      (swap! runs conj (record-run {:run-id "r17" :phase 3
+          r2 (resume! actor "r18" :approved)]
+      (swap! runs conj (record-run {:run-id "r18" :phase 3
                                     :label "clean at intake; zone permit expired mid-review; human approved anyway"
                                     :request {:op :cleaning/dispatch :site-id "site-2" :zone-id zone-id
-                                              :patch {:run-id "r17" :fluid-id "fluid-1" :surface "glass"}}
+                                              :patch {:run-id "r18" :fluid-id "fluid-1" :surface "glass"}}
                                     :first-result r1 :resumed r2 :human :approved}))
       {:db db
        :runs @runs
-       :permit-drill {:zone-id zone-id
+       :permit-drill {:run-id "r18"
+                      :zone-id zone-id
                       :expires-before before
                       :expires-after after
                       :as-of today
@@ -557,7 +578,7 @@
         "<code>governor/check</code> に実際に問い合わせた結果。"
         "<strong>この表は実行終了時点の状態</strong>である -- "
         (code (:zone-id permit-drill))
-        " の許可期限は 17 番目の実行 (§8) の人間レビュー中に "
+        " の許可期限は実行 " (code (:run-id permit-drill)) " (§8) の人間レビュー中に "
         "<span class=\"num\">" (esc (:expires-before permit-drill)) "</span> から "
         "<span class=\"num\">" (esc (:expires-after permit-drill)) "</span> へ変化した。"
         "それ以前の実行はすべて有効な許可の下で判定されている。")

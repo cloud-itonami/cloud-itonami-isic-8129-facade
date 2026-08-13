@@ -2686,7 +2686,7 @@ img,svg { max-width: 100%; height: auto; }
   <h1>外装・路面清掃ロボット派遣アクター — オペレータコンソール</h1>
 </header>
 <p><span class="badge">ISIC Rev.5 8129</span> <span class="badge">read-only サンプル</span> <span class="badge">governor-gated</span> <span class="badge">物理派遣は常に人間承認</span></p>
-<p class="subtitle">このページはビルド時に <code>facadecleaningops.render-html</code> が実アクター (<code>operation</code> → <code>governor</code> → <code>store</code>) を実際に走らせて生成したもの。以下の <span class="num">17</span> 実行・<span class="num">17</span> 監査事実・<span class="num">5</span> commit 記録は、すべてその実行の出力であって手書きではない。ガバナの HARD 拒否 <span class="num">9</span> 件（規則 <span class="num">7</span> 種: <code>effect-not-propose</code>・<code>evidence-missing</code>・<code>scope-excluded</code>・<code>sds-out-of-scope</code>・<code>site-unverified</code>・<code>zone-permit-invalid</code>・<code>zone-unverified</code>）、ロールアウト保留 <span class="num">2</span> 件。</p>
+<p class="subtitle">このページはビルド時に <code>facadecleaningops.render-html</code> が実アクター (<code>operation</code> → <code>governor</code> → <code>store</code>) を実際に走らせて生成したもの。以下の <span class="num">18</span> 実行・<span class="num">18</span> 監査事実・<span class="num">5</span> commit 記録は、すべてその実行の出力であって手書きではない。ガバナの HARD 拒否 <span class="num">10</span> 件（規則 <span class="num">8</span> 種: <code>effect-not-propose</code>・<code>evidence-missing</code>・<code>op-not-allowed</code>・<code>scope-excluded</code>・<code>sds-out-of-scope</code>・<code>site-unverified</code>・<code>zone-permit-invalid</code>・<code>zone-unverified</code>）、ロールアウト保留 <span class="num">2</span> 件。</p>
 <main>
   <section class="card">
     <h2>1. 登録済み清掃対象サイト (client sites)</h2>
@@ -2702,7 +2702,7 @@ img,svg { max-width: 100%; height: auto; }
   </section>
   <section class="card">
     <h2>2. 展開区画 (deployment zones) と道路占用許可</h2>
-    <p class="muted">区画は純粋なデータ (<code>facadecleaningops.store</code> の <code>zone</code> レコード)。都市を増やしてもコード変更は不要。許可の有効性は as-of <span class="num">20260718</span> で <code>governor/check</code> に実際に問い合わせた結果。<strong>この表は実行終了時点の状態</strong>である -- <code>shibuya-ku-row</code> の許可期限は 17 番目の実行 (§8) の人間レビュー中に <span class="num">20270101</span> から <span class="num">20260101</span> へ変化した。それ以前の実行はすべて有効な許可の下で判定されている。</p>
+    <p class="muted">区画は純粋なデータ (<code>facadecleaningops.store</code> の <code>zone</code> レコード)。都市を増やしてもコード変更は不要。許可の有効性は as-of <span class="num">20260718</span> で <code>governor/check</code> に実際に問い合わせた結果。<strong>この表は実行終了時点の状態</strong>である -- <code>shibuya-ku-row</code> の許可期限は実行 <code>r18</code> (§8) の人間レビュー中に <span class="num">20270101</span> から <span class="num">20260101</span> へ変化した。それ以前の実行はすべて有効な許可の下で判定されている。</p>
     <table>
       <thead><tr><th>zone-id</th><th>名称</th><th>status</th><th>許可要否</th><th>許可 status</th><th>expires</th><th>governor 判定</th></tr></thead>
       <tbody>
@@ -2759,12 +2759,13 @@ img,svg { max-width: 100%; height: auto; }
         <tr><td><code>r14</code></td><td><span class="num">3</span></td><td><code>log-completion</code></td><td><code>site-1</code></td><td><code>shibuya-ku-row</code></td><td><span class="muted">—</span></td><td><span class="muted">done</span></td><td><span class="muted">（介在なし）</span></td><td><span class="critical">hold</span></td></tr>
         <tr><td><code>r15</code></td><td><span class="num">3</span></td><td><code>assess</code></td><td><code>site-1</code></td><td><code>shibuya-ku-row</code></td><td><code>fluid-1</code> / glass</td><td><span class="muted">done</span></td><td><span class="muted">（介在なし）</span></td><td><span class="critical">hold</span></td></tr>
         <tr><td><code>r16</code></td><td><span class="num">3</span></td><td><code>assess</code></td><td><code>site-1</code></td><td><code>shibuya-ku-row</code></td><td><code>fluid-1</code> / glass</td><td><span class="muted">done</span></td><td><span class="muted">（介在なし）</span></td><td><span class="critical">hold</span></td></tr>
-        <tr><td><code>r17</code></td><td><span class="num">3</span></td><td><code>dispatch</code></td><td><code>site-2</code></td><td><code>shibuya-ku-row</code></td><td><code>fluid-1</code> / glass</td><td><span class="warn">interrupted</span></td><td><span class="warn">approved</span></td><td><span class="critical">hold</span></td></tr>
+        <tr><td><code>r17</code></td><td><span class="num">3</span></td><td><code>demolish</code></td><td><code>site-1</code></td><td><code>shibuya-ku-row</code></td><td><span class="muted">—</span></td><td><span class="muted">done</span></td><td><span class="muted">（介在なし）</span></td><td><span class="critical">hold</span></td></tr>
+        <tr><td><code>r18</code></td><td><span class="num">3</span></td><td><code>dispatch</code></td><td><code>site-2</code></td><td><code>shibuya-ku-row</code></td><td><code>fluid-1</code> / glass</td><td><span class="warn">interrupted</span></td><td><span class="warn">approved</span></td><td><span class="critical">hold</span></td></tr>
       </tbody>
     </table>
   </section>
   <section class="card">
-    <h2>6. ガバナの HARD 拒否 9 件 — 人間に到達しない</h2>
+    <h2>6. ガバナの HARD 拒否 10 件 — 人間に到達しない</h2>
     <p class="muted">永久・上書き不可。<code>facadecleaningops.governor</code> が提案そのものを拒否したもので、承認キューにも載らない。detail 文言は governor が生成した実際の文字列。<strong>後述 §7 のロールアウト保留とは別物</strong>である。</p>
     <table>
       <thead><tr><th>run が触れた op</th><th>site</th><th>zone</th><th>confidence</th><th>違反規則と detail</th></tr></thead>
@@ -2777,6 +2778,7 @@ img,svg { max-width: 100%; height: auto; }
         <tr><td><code>log-completion</code></td><td><code>site-1</code></td><td><code>shibuya-ku-row</code></td><td><span class="num">0.92</span></td><td><strong>evidence-missing</strong><br><span class="muted">証跡(写真/センサーログ)が添付されていない完了記録は永久に禁止</span></td></tr>
         <tr><td><code>assess</code></td><td><code>site-1</code></td><td><code>shibuya-ku-row</code></td><td><span class="num">0.9</span></td><td><strong>effect-not-propose</strong><br><span class="muted">:effect は :propose のみ許可されるが :commit が提案された</span></td></tr>
         <tr><td><code>assess</code></td><td><code>site-1</code></td><td><code>shibuya-ku-row</code></td><td><span class="num">0.9</span></td><td><strong>scope-excluded</strong><br><span class="muted">ロボットの直接操作/未検証現場への立入/SDS適用範囲の上書きに触れる提案は永久に禁止</span></td></tr>
+        <tr><td><code>demolish</code></td><td><code>site-1</code></td><td><code>shibuya-ku-row</code></td><td><span class="num">0.0</span></td><td><strong>op-not-allowed</strong><br><span class="muted">:unknown は許可された操作(closed allowlist)に含まれない</span></td></tr>
         <tr><td><code>dispatch</code></td><td><code>site-2</code></td><td><code>shibuya-ku-row</code></td><td><span class="num">0.88</span></td><td><strong>zone-permit-invalid</strong><br><span class="muted">shibuya-ku-row の公共道路占用許可(public-right-of-way permit)が未取得/失効/保留中 -- いかなる提案も進められない</span></td></tr>
       </tbody>
     </table>
@@ -2845,7 +2847,7 @@ img,svg { max-width: 100%; height: auto; }
     </table>
   </section>
   <section class="card">
-    <h2>12. 監査台帳 (append-only) 全 17 件</h2>
+    <h2>12. 監査台帳 (append-only) 全 18 件</h2>
     <p class="muted">この実行が書いた決定事実の全件。commit も hold も等しく残る。</p>
     <table>
       <thead><tr><th>#</th><th>fact</th><th>op</th><th>site</th><th>zone</th><th>disposition</th><th>basis</th></tr></thead>
@@ -2866,7 +2868,8 @@ img,svg { max-width: 100%; height: auto; }
         <tr><td><span class="num">14</span></td><td><code>governor-hold</code></td><td><code>log-completion</code></td><td><code>site-1</code></td><td><code>shibuya-ku-row</code></td><td><span class="critical">hold</span></td><td><code>evidence-missing</code></td></tr>
         <tr><td><span class="num">15</span></td><td><code>governor-hold</code></td><td><code>assess</code></td><td><code>site-1</code></td><td><code>shibuya-ku-row</code></td><td><span class="critical">hold</span></td><td><code>effect-not-propose</code></td></tr>
         <tr><td><span class="num">16</span></td><td><code>governor-hold</code></td><td><code>assess</code></td><td><code>site-1</code></td><td><code>shibuya-ku-row</code></td><td><span class="critical">hold</span></td><td><code>scope-excluded</code></td></tr>
-        <tr><td><span class="num">17</span></td><td><code>approval-superseded-by-fresh-hold</code></td><td><code>dispatch</code></td><td><code>site-2</code></td><td><code>shibuya-ku-row</code></td><td><span class="critical">hold</span></td><td><code>zone-permit-invalid</code></td></tr>
+        <tr><td><span class="num">17</span></td><td><code>governor-hold</code></td><td><code>demolish</code></td><td><code>site-1</code></td><td><code>shibuya-ku-row</code></td><td><span class="critical">hold</span></td><td><code>op-not-allowed</code></td></tr>
+        <tr><td><span class="num">18</span></td><td><code>approval-superseded-by-fresh-hold</code></td><td><code>dispatch</code></td><td><code>site-2</code></td><td><code>shibuya-ku-row</code></td><td><span class="critical">hold</span></td><td><code>zone-permit-invalid</code></td></tr>
       </tbody>
     </table>
   </section>
