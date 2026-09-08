@@ -50,7 +50,7 @@
   (default `docs/samples/operator-console.html`)."
   (:require [jp-go-dds.skin]
             [clojure.java.io :as io]
-            [clojure.string :as str]
+            [kotoba.lang.text :as str]
             [facadecleaningops.advisor :as advisor]
             [facadecleaningops.governor :as governor]
             [facadecleaningops.phase :as phase]
@@ -389,7 +389,7 @@
                         (let [p (conj prefix k)]
                           (concat
                            (when (and (keyword? k)
-                                      (str/includes? (str/lower-case (name k)) "approv"))
+                                      (str/includes? (str/lower (name k)) "approv"))
                              [[p v]])
                            (walk p v))))
                       m)))]
