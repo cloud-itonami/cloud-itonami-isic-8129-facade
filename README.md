@@ -170,13 +170,13 @@ clojure -M:run
 
 ### Test suite
 
-- `test/facadecleaningops/governor_test.clj` -- unit tests of governor
+- `test/facadecleaningops/governor_test.kotoba` -- unit tests of governor
   hard checks, scope exclusion, and the self-trip regression test
-- `test/facadecleaningops/actor_test.clj` -- full graph integration: clean
+- `test/facadecleaningops/actor_test.kotoba` -- full graph integration: clean
   commit, hard-hold, escalate→approve, escalate→reject, the
   missing-phase-defaults-to-conservative fix, and the safety-critical
   live-store re-verification at resume
-- `test/facadecleaningops/store_contract_test.clj` -- Store protocol and
+- `test/facadecleaningops/store_contract_test.kotoba` -- Store protocol and
   MemStore implementation
 
 ### Modules
