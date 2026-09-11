@@ -20,7 +20,7 @@
   page's own footer states which seed the numbers came from.
 
   Before writing this namespace the repo's own demo driver
-  (`clojure -M:dev:run`, `facadecleaningops.sim`) was run and its ledger
+  (`kbb -M:dev:run`, `facadecleaningops.sim`) was run and its ledger
   inspected, confirming that the ids it uses (`site-1`..`site-3`,
   `shibuya-ku-row` / `expired-permit-zone` / `suspended-zone` /
   `private-lot-no-permit`, `fluid-1`..`fluid-3`) really are defined by
@@ -46,7 +46,7 @@
   vector -- a naive `(count holds)` would be satisfied by a run in which
   the governor never refused anything at all. See `-main`.
 
-  Usage: `clojure -M:dev:render-html [out-file]`
+  Usage: `kbb -M:dev:render-html [out-file]`
   (default `docs/samples/operator-console.html`)."
   (:require [jp-go-dds.skin]
             [clojure.java.io :as io]
@@ -853,7 +853,7 @@
      (ledger-section ledger)
      "</main>\n"
      "<footer>\n"
-     "  <p>生成元: <code>clojure -M:dev:render-html</code> "
+     "  <p>生成元: <code>kbb -M:dev:render-html</code> "
      "(<code>facadecleaningops.render-html</code>)。"
      "種データは <code>facadecleaningops.store/demo-data</code>、"
      "as-of 日付は <span class=\"num\">" (esc today) "</span> "

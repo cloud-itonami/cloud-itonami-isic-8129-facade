@@ -1,5 +1,5 @@
 (ns facadecleaningops.sim
-  "Demo driver -- `clojure -M:run`. Walks a clean readiness assessment
+  "Demo driver -- `kbb -M:run`. Walks a clean readiness assessment
   through intake -> advise -> govern -> decide -> commit at phase 3,
   then a physical robot dispatch (ALWAYS escalates regardless of phase
   -- approve, then commit), then a post-run completion log with evidence
