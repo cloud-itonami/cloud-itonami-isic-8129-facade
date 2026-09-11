@@ -31,7 +31,7 @@
          io.github.kotoba-lang/jp-go-digital-design-system
          {:local/root "../../kotoba-lang/jp-go-digital-design-system"}}}
   :run {:main-opts ["-m" "facadecleaningops.sim"]}
-  ;; clojure -M:dev:render-html [out-file] -> regenerate
+  ;; kbb -M:dev:render-html [out-file] -> regenerate
   ;; docs/samples/operator-console.html by driving the REAL actor
   ;; (operation -> governor -> store). Refuses to write unless the run
   ;; actually produced governor HARD refusals; see the namespace.

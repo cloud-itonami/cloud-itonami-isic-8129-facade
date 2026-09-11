@@ -2875,7 +2875,7 @@ img,svg { max-width: 100%; height: auto; }
   </section>
 </main>
 <footer>
-  <p>生成元: <code>clojure -M:dev:render-html</code> (<code>facadecleaningops.render-html</code>)。種データは <code>facadecleaningops.store/demo-data</code>、as-of 日付は <span class="num">20260718</span> で明示的にスレッドされており実時計は読まない。同じ種から再生成するとバイト単位で同一になる（ページ本文にタイムスタンプを含めない）。</p>
+  <p>生成元: <code>kbb -M:dev:render-html</code> (<code>facadecleaningops.render-html</code>)。種データは <code>facadecleaningops.store/demo-data</code>、as-of 日付は <span class="num">20260718</span> で明示的にスレッドされており実時計は読まない。同じ種から再生成するとバイト単位で同一になる（ページ本文にタイムスタンプを含めない）。</p>
   <p>ページに出せなかった値はここに明記する: この store の <code>commit-record!</code> が書く記録には <code>:dispatch-id</code> が付かないため (<code>facadecleaningops.operation/commit-record</code> が生成しない)、<code>store/dispatch-record</code> による ID 引きは commit 済み記録を解決できない。本ページが記録と実行を結ぶキーは、要求の <code>:patch</code> 経由で実際に流れた <code>:run-id</code> である。</p>
 </footer>
 </body></html>

@@ -8,9 +8,9 @@ repo is a role-suffix satellite of `cloud-itonami-isic-8129` -- see
 ## Development
 
 ```bash
-clojure -M:test
-clojure -M:lint
-clojure -M:run   # sim.cljc demo driver
+kbb -M:test
+kbb -M:lint
+kbb -M:run   # sim.cljc demo driver
 ```
 
 ## Rules
