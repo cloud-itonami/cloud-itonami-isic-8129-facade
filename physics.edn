@@ -1,0 +1,34 @@
+;; What this vertical's robot physically does, declared for
+;; kotoba.robotics.process (kotoba-lang/robotics). `kbb -M:dev:physics` runs it.
+;;
+;; README "Robotics premise": this actor is the physical-robot dispatch layer
+;; for autonomous facade and street-cleaning robots (satellite of ISIC 8129),
+;; every dispatch gated by human sign-off and the FacadeCleaningGovernor.
+;; The physical work declared here: pumping purified wash water up the
+;; building to the facade-cleaning robot through its feed hose, and a
+;; street-sweeper robot climbing a sloped street with a full debris hopper.
+;;
+;; Every number without a cited source is marked `estimate` in its :basis.
+;; Replacing an estimate with a sourced value is this bot's growth work.
+{:physics/schema "itonami.physical-ai.spec.v1"
+ :repo "cloud-itonami/cloud-itonami-isic-8129-facade"
+ :cases
+ [{:id :facade-wash-water-feed
+   :kind :pipe-flow
+   :procedure "ground booster pump feeds purified wash water at 6 L/min up the building through the facade robot's 100 m, 1/2 inch feed hose to its working height"
+   :params {:q-m3s 1.0e-4 :diameter-m 0.0127 :length-m 100.0 :roughness-m 1.5e-6 :density-kg-m3 998.0
+            :viscosity-pa-s 1.0e-3 :pump-efficiency 0.60}
+   :sweep {:param :elevation-m :values [10.0 20.0 35.0 50.0 70.0 90.0]}
+   :quantity :pressure-drop-pa
+   :limit {:max 700000.0 :basis "estimate: delivery pressure of a compact ground booster pump on a facade-cleaning water cart; one 100 m hose reel serves every working height"}
+   :boundary {:lo 5.0 :hi 120.0}}
+  {:id :street-sweeper-up-sloped-street
+   :kind :transport
+   :procedure "street-sweeper robot climbs a sloped street block with its debris hopper full"
+   :params {:mass-kg 180.0 :payload-kg 60.0 :distance-m 80.0 :v-max-mps 1.2 :a-max-mps2 0.4
+            :brake-decel-mps2 1.0 :drive-force-n 400.0 :crr 0.03
+            :cog-height-m 0.45 :support-half-length-m 0.40 :max-time-s 1800.0}
+   :sweep {:param :slope-deg :values [0.0 3.0 6.0 8.0 9.5]}
+   :quantity :cycle-time-s
+   :limit {:max 100.0 :basis "estimate: one street block per sweeping pass inside the traffic-light phase plan of the district's early-morning cleaning slot"}
+   :boundary {:lo 0.0 :hi 12.0}}]}
