@@ -11,7 +11,7 @@
        io.github.kotoba-lang/langgraph
         {:git/sha "6daa48e7bf86acc13d44804104fced4938530fd2"}
         ;; base design system for the build-time operator console
-        ;; (`facadecleaningops.render-html`). CLAUDE.md's "UI/UX 標準"
+        ;; (`facadecleaningops.render-html`). AGENTS.md's "UI/UX 標準"
         ;; makes jp-go-dds (デジタル庁デザインシステム) the base design
         ;; system for any UI in this workspace; `:dev` below overrides it
         ;; to the local monorepo checkout so the console renders offline.
@@ -31,7 +31,7 @@
   ;; rest of the com-junkawasaki fleet builds against, instead of the
   ;; git/sha-pinned base deps above (which still work standalone outside
   ;; this monorepo). Note: `kotoba-lang/langgraph` is the current,
-  ;; west-registered, renamed coordinate (per CLAUDE.md's "Repo naming
+  ;; west-registered, renamed coordinate (per AGENTS.md's "Repo naming
   ;; -- no -clj suffix" ADR, 2026-07-10); `com-junkawasaki/langgraph-clj`
   ;; is the historical pre-rename name and is deliberately NOT used here.
   :dev {:override-deps
