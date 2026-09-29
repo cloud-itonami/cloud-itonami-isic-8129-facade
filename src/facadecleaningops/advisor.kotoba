@@ -186,7 +186,7 @@
   has no hard dependency beyond `langchain.model`'s protocol -- the
   actual model is resolved by the CALLER via the `murakumo-main` KV
   alias (`GET https://api.murakumo.cloud/infer/models/murakumo-main` ->
-  `{endpoint alias-for}`, per ADR-2607173100 / CLAUDE.md's 'LLM モデル
+  `{endpoint alias-for}`, per ADR-2607173100 / AGENTS.md's 'LLM モデル
   選択' section). This ns never hardcodes a concrete model id."
   [chat-model model-generate-fn gen-opts]
   (reify Advisor

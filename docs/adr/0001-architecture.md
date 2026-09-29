@@ -347,7 +347,7 @@ than fake it.
 - `orgs/gftdcojp/cloud-itonami/src/itonami/phase.cljc` -- provenance of
   the missing-phase-defaults-to-conservative fix
 - ADR-2607011000: Itonami Actor Pattern (langgraph StateGraph)
-- CLAUDE.md, Actors section: Standing regulations for actor design in
+- AGENTS.md, Actors section: Standing regulations for actor design in
   this workspace
 - 8423 (Public Order and Safety Administrative Operations): the cleanest
   fully-`:implemented` reference actor this repo's module shape and
